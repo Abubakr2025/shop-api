@@ -57,8 +57,7 @@ final class OrderTest extends TestCase
             'items' => [['product_id' => $product->id, 'qty' => 5]]
         ]);
 
-        // Ожидаем ошибку 422 и наше сообщение
-        $response->assertUnprocessable();
+        $response->assertStatus(409); // 409 Conflict — это то, что мы настроили для DomainException
         
         // Проверяем, что в сообщении есть слово "Недостаточно"
         $this->assertStringContainsString('Недостаточно', $response->json('message'));
